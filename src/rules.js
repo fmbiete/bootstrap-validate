@@ -7,10 +7,49 @@ import endsWith from "lodash/endsWith";
 import trim from "lodash/trim";
 import split from "lodash/split";
 import gte from "lodash/gte";
+import gt from "lodash/gt";
 import lte from "lodash/lte";
+import lt from "lodash/lt";
+import map from "lodash/map";
 import Big from "big.js";
 
 module.exports = {
+  lessThanEqual: (input, val) =>
+    /**
+     * @since 2.2.0
+     * @example 20
+     * @error Enter a number smaller or equal than 20!
+     * @param val number: Compare value.
+     * @description Require a number smaller or equal than another.
+     */
+    lte(parseFloat(input.value), parseFloat(val)),
+  lessThan: (input, val) =>
+    /**
+     * @since 2.2.0
+     * @example 20
+     * @error Enter a number smaller than 20!
+     * @param val number: Compare value.
+     * @description Require a number smaller than another.
+     */
+    lt(parseFloat(input.value), parseFloat(val)),
+  greaterThanEqual: (input, val) =>
+    /**
+     * @since 2.2.0
+     * @example 20
+     * @error Enter a number greater or equal than 20!
+     * @param val number: Compare value.
+     * @description Require a number greater or equal than another.
+     */
+    gte(parseFloat(input.value), parseFloat(val)),
+  greaterThan: (input, val) =>
+    /**
+     * @since 2.2.0
+     * @example 20
+     * @error Enter a number greater than 20!
+     * @param val number: Compare value.
+     * @description Require a number greater than another.
+     */
+    gt(parseFloat(input.value), parseFloat(val)),
   min: (input, min) =>
     /**
      * @since 1.0.0
@@ -167,7 +206,10 @@ module.exports = {
      * @description Validate if user input is in given array. Similar to contains, but with an array.
      */
     const value = trim(input.value);
-    const array = split(trim(string, "whitespace()"), ",");
+    const array = map(
+      split(trim(trim(trim(string, "whitespace"), ")"), "("), ","),
+      trim
+    );
     return array.includes(value);
   }
 };
