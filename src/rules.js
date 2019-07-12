@@ -14,6 +14,17 @@ import map from "lodash/map";
 import Big from "big.js";
 
 module.exports = {
+  range: (input, minval, maxval) =>
+    /**
+     * @since 2.2.0
+     * @example 20, 50
+     * @error Enter a number greater or equal than 20 and smaller or equal than 50!
+     * @param minval number: lower limit
+     * @param maxval number: top limit
+     * @description Require a number greater or equal than A and smaller or equal than B
+     */
+    gte(parseFloat(input.value), parseFloat(minval)) &&
+    lte(parseFloat(input.value), parseFloat(maxval)),
   lessThanEqual: (input, val) =>
     /**
      * @since 2.2.0
